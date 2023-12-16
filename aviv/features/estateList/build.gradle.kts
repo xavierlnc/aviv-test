@@ -1,3 +1,4 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id("android-library-convention")
     id("compose-convention")
@@ -7,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.xavierlnc.aviv.features.list"
+    namespace = "com.xavierlnc.aviv.features.estateList"
 }
 
 dependencies {

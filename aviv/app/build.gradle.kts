@@ -2,7 +2,9 @@
 plugins {
     id("application-convention")
     id("compose-convention")
+    kotlin("kapt")
 
+    alias(libs.plugins.hilt)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
 }
@@ -27,6 +29,12 @@ android {
 }
 
 dependencies {
+    implementation(project(":aviv:features:estateList"))
+
+    // Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
