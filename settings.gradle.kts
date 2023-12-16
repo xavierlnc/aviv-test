@@ -15,6 +15,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Aviv Test"
+rootProject.name = "aviv-test"
 
 apply(from = "aviv/settings.gradle.kts")
