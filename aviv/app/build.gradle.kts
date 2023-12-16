@@ -29,7 +29,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":aviv:features:estateList"))
+    implementation(project(":aviv:features:realEstateList"))
 
     // Hilt
     implementation(libs.hilt.android)

@@ -1,4 +1,4 @@
 include(
     ":aviv:features:details",
-    ":aviv:features:estateList"
+    ":aviv:features:realEstateList"
 )

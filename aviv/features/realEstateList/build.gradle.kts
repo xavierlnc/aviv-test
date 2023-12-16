@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.xavierlnc.aviv.features.estateList"
+    namespace = "com.xavierlnc.aviv.features.realEstateList"
 }
 
 dependencies {

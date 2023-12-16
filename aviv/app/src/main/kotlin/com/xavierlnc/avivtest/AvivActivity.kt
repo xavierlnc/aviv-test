@@ -6,14 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.xavierlnc.aviv.features.estateList.navigation.ESTATE_LIST_ROUTE
-import com.xavierlnc.aviv.features.estateList.navigation.estateListScreen
+import com.xavierlnc.aviv.features.realEstateList.navigation.ESTATE_LIST_ROUTE
+import com.xavierlnc.aviv.features.realEstateList.navigation.realEstateListScreen
 import com.xavierlnc.avivtest.ui.theme.AvivTestTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,26 +30,10 @@ class AvivActivity : ComponentActivity() {
                         navController = navController,
                         startDestination = ESTATE_LIST_ROUTE,
                     ) {
-                        estateListScreen()
+                        realEstateListScreen()
                     }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AvivTestTheme {
-        Greeting("Android")
     }
 }
