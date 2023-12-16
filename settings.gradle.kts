@@ -18,3 +18,6 @@ dependencyResolutionManagement {
 rootProject.name = "aviv-test"
 
 apply(from = "aviv/settings.gradle.kts")
+apply(from = "network/settings.gradle.kts")
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

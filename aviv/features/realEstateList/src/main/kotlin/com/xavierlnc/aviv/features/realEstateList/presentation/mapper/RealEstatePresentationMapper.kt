@@ -12,9 +12,23 @@ internal class RealEstatePresentationMapper @Inject constructor() {
             location = item.city,
             type = item.propertyType,
             imageUrl = item.imageUrl,
-            details = "${item.rooms} rooms • ${item.bedrooms} bedrooms • ${item.area.mapAreaToPresentation()}",
+            details = createRealEstateCardDetails(
+                rooms = item.rooms,
+                bedrooms = item.bedrooms,
+                area = item.area,
+            ),
             price = item.price.mapPriceToPresentation(),
         )
+
+    private fun createRealEstateCardDetails(
+        rooms: Int?,
+        bedrooms: Int?,
+        area: Double,
+    ): String = listOfNotNull(
+        rooms?.let { "$rooms rooms" },
+        bedrooms?.let { "$bedrooms bedrooms" },
+        area.mapAreaToPresentation()
+    ).joinToString(separator = " • ")
 
     private fun Double.mapPriceToPresentation(): String = "${this.toInt()} €"
 

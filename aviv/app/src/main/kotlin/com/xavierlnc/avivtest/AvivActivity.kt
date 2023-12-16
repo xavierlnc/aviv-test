@@ -9,7 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.xavierlnc.aviv.features.realEstateList.navigation.ESTATE_LIST_ROUTE
+import com.xavierlnc.aviv.features.realEstateList.navigation.REAL_ESTATE_LIST_ROUTE
 import com.xavierlnc.aviv.features.realEstateList.navigation.realEstateListScreen
 import com.xavierlnc.avivtest.ui.theme.AvivTestTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +28,7 @@ class AvivActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = ESTATE_LIST_ROUTE,
+                        startDestination = REAL_ESTATE_LIST_ROUTE,
                     ) {
                         realEstateListScreen()
                     }

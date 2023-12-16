@@ -29,12 +29,16 @@ android {
 }
 
 dependencies {
-    implementation(project(":aviv:features:realEstateList"))
+    implementation(projects.aviv.features.realEstateList)
+    implementation(projects.network.retrofit)
 
     // Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
+
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.gson)
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

@@ -1,6 +1,6 @@
-package com.xavierlnc.aviv.features.realEstateList.domain.model
+package com.xavierlnc.network.realEstate.model.list
 
-internal data class RealEstateModel(
+data class RealEstateListItemEntity(
     val id: Int,
     val bedrooms: Int?,
     val rooms: Int?,

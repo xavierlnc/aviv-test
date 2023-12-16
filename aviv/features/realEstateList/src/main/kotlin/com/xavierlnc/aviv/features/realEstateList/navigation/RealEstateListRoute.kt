@@ -6,17 +6,17 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.xavierlnc.aviv.features.realEstateList.presentation.screen.RealEstateListScreen
 
-const val ESTATE_LIST_ROUTE = "estate_list_route"
+const val REAL_ESTATE_LIST_ROUTE = "estate_list_route"
 
 fun NavController.navigateRealEstateList(navOptions: NavOptions? = null) {
     this.navigate(
-        route = ESTATE_LIST_ROUTE,
+        route = REAL_ESTATE_LIST_ROUTE,
         navOptions = navOptions,
     )
 }
 
 fun NavGraphBuilder.realEstateListScreen() {
-    composable(route = ESTATE_LIST_ROUTE) {
+    composable(route = REAL_ESTATE_LIST_ROUTE) {
         RealEstateListScreen()
     }
 }

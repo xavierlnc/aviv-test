@@ -6,5 +6,5 @@ internal data class RealEstateListItem(
     val type: String,
     val details: String,
     val location: String,
-    val imageUrl: String,
+    val imageUrl: String?,
 )
