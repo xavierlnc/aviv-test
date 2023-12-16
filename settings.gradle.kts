@@ -14,5 +14,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Aviv Test"
-include(":app")
- 
+
+apply(from = "aviv/settings.gradle.kts")
