@@ -1,26 +1,19 @@
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id("android-library-convention")
-    id("compose-convention")
     kotlin("kapt")
 
     alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "com.xavierlnc.aviv.features.realEstateList"
+    namespace = "com.xavierlnc.aviv.features.shared"
 }
 
 dependencies {
-    implementation(projects.aviv.features.shared.formatter)
-    implementation(projects.network.realEstate)
-    implementation(projects.network.retrofit)
-    implementation(projects.designSystem)
 
     implementation(libs.androidx.core)
     implementation(libs.activity.compose)
-    implementation(libs.retrofit.core)
-    implementation(libs.retrofit.gson)
 
     // Hilt
     implementation(libs.hilt.android)

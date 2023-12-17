@@ -42,17 +42,15 @@ internal fun RealEstateDetailsScreen(
                 }
             )
 
-            else -> with (state.value) {
-                RealEstateDetailsContentScreen(
-                    details = details,
-                    imageUrl = imageUrl,
-                    price = price,
-                    professional = professional,
-                    offerType = offerType,
-                    type = type,
-                    location = location,
-                )
-            }
+            state.value.details != null -> RealEstateDetailsContentScreen(
+                details = state.value.details!!,
+            )
+
+            else -> RealEstateDetailsErrorScreen(
+                onTryAgainClicked = {
+                    viewModel.handleAction(RealEstateDetailsAction.FetchRealEstateDetails(id))
+                }
+            )
         }
     }
 }

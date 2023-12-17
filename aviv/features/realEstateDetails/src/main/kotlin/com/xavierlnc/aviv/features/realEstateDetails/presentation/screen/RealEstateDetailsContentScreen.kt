@@ -21,17 +21,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.xavierlnc.aviv.features.realEstateDetails.presentation.model.RealEstateDetails
 import com.xavierlnc.designSystem.core.AsyncImage
 
 @Composable
 internal fun RealEstateDetailsContentScreen(
-    price: String,
-    type: String,
-    details: String,
-    location: String,
-    imageUrl: String?,
-    professional: String,
-    offerType: Int,
+    details: RealEstateDetails,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -47,10 +42,10 @@ internal fun RealEstateDetailsContentScreen(
         val imageContainerModifier = Modifier
             .fillMaxWidth()
             .height(240.dp)
-        imageUrl?.let {
+        details.imageUrl?.let {
             AsyncImage(
                 modifier = imageContainerModifier,
-                imageUrl = imageUrl,
+                imageUrl = details.imageUrl,
                 alignment = Alignment.Center,
                 contentScale = ContentScale.Crop
             )
@@ -62,7 +57,7 @@ internal fun RealEstateDetailsContentScreen(
             modifier = horizontalPadding,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            text = type,
+            text = details.type,
         )
 
         Spacer(modifier = modifier.height(12.dp))
@@ -71,7 +66,7 @@ internal fun RealEstateDetailsContentScreen(
             modifier = horizontalPadding,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
-            text = details,
+            text = details.details,
         )
 
         Spacer(modifier = modifier.height(8.dp))
@@ -79,7 +74,7 @@ internal fun RealEstateDetailsContentScreen(
         Text(
             modifier = horizontalPadding,
             fontSize = 14.sp,
-            text = location,
+            text = details.location,
         )
 
         Spacer(modifier = modifier.height(20.dp))
@@ -88,7 +83,7 @@ internal fun RealEstateDetailsContentScreen(
             modifier = horizontalPadding,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            text = price,
+            text = details.price,
         )
     }
 }
@@ -97,12 +92,15 @@ internal fun RealEstateDetailsContentScreen(
 @Composable
 private fun RealEstateDetailsContentScreenPreview() {
     RealEstateDetailsContentScreen(
-        price = "1 500 000€",
-        location = "Viliers-sur-Mer",
-        details = "8 rooms - 4 bedrooms - 250 m2",
-        type = "Maison - Villa",
-        offerType = 1,
-        professional = "GSL",
-        imageUrl = null,
+        details = RealEstateDetails(
+            id = 0,
+            price = "1 500 000€",
+            location = "Viliers-sur-Mer",
+            details = "8 rooms - 4 bedrooms - 250 m2",
+            type = "Maison - Villa",
+            offerType = 1,
+            professional = "GSL",
+            imageUrl = null,
+        )
     )
 }

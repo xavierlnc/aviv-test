@@ -1,18 +1,18 @@
-package com.xavierlnc.aviv.features.realEstateList.presentation.mapper
+package com.xavierlnc.aviv.features.realEstateDetails.presentation.mapper
 
-import com.xavierlnc.aviv.features.realEstateList.domain.model.RealEstateModel
-import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListItem
+import com.xavierlnc.aviv.features.realEstateDetails.domain.model.RealEstateDetailsModel
+import com.xavierlnc.aviv.features.realEstateDetails.presentation.model.RealEstateDetails
 import com.xavierlnc.aviv.features.shared.formatter.area.AreaFormatter
 import com.xavierlnc.aviv.features.shared.formatter.price.PriceFormatter
 import javax.inject.Inject
 
-internal class RealEstatePresentationMapper @Inject constructor(
+internal class RealEstateDetailsPresentationMapper @Inject constructor(
     private val priceFormatter: PriceFormatter,
     private val areaFormatter: AreaFormatter,
 ) {
 
-    fun mapRealEstateDomainToPresentation(item: RealEstateModel): RealEstateListItem =
-        RealEstateListItem(
+    fun mapRealEstateDetailsDomainToPresentation(item: RealEstateDetailsModel): RealEstateDetails =
+        RealEstateDetails(
             id = item.id,
             location = item.city,
             type = item.propertyType,
@@ -23,6 +23,8 @@ internal class RealEstatePresentationMapper @Inject constructor(
                 area = item.area,
             ),
             price = priceFormatter.formatPrice(item.price),
+            offerType = item.offerType,
+            professional = item.professional,
         )
 
     private fun createRealEstateCardDetails(
