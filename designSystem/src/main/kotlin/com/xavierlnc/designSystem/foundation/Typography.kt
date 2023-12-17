@@ -1,4 +1,4 @@
-package com.xavierlnc.avivtest.ui.theme
+package com.xavierlnc.designSystem.foundation
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

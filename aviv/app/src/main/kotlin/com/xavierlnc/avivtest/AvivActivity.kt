@@ -13,7 +13,7 @@ import com.xavierlnc.aviv.features.realEstateDetails.navigation.navigateRealEsta
 import com.xavierlnc.aviv.features.realEstateDetails.navigation.realEstateDetailsScreen
 import com.xavierlnc.aviv.features.realEstateList.navigation.REAL_ESTATE_LIST_ROUTE
 import com.xavierlnc.aviv.features.realEstateList.navigation.realEstateListScreen
-import com.xavierlnc.avivtest.ui.theme.AvivTestTheme
+import com.xavierlnc.designSystem.foundation.AvivTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +21,7 @@ class AvivActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AvivTestTheme {
+            AvivTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),

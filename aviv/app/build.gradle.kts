@@ -32,6 +32,7 @@ dependencies {
     implementation(projects.aviv.features.realEstateList)
     implementation(projects.aviv.features.realEstateDetails)
     implementation(projects.network.retrofit)
+    implementation(projects.designSystem)
 
     // Hilt
     implementation(libs.hilt.android)
