@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.xavierlnc.aviv.features.shared"
+    namespace = "com.xavierlnc.aviv.features.shared.formatter"
 }
 
 dependencies {

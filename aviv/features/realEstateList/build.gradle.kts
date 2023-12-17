@@ -13,6 +13,7 @@ android {
 
 dependencies {
     implementation(projects.aviv.features.shared.formatter)
+    implementation(projects.aviv.features.shared.common)
     implementation(projects.network.realEstate)
     implementation(projects.network.retrofit)
     implementation(projects.designSystem)

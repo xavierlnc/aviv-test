@@ -2,6 +2,7 @@ package com.xavierlnc.aviv.features.realEstateList.presentation.mapper
 
 import com.xavierlnc.aviv.features.realEstateList.domain.model.RealEstateModel
 import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListItem
+import com.xavierlnc.aviv.features.realEstateList.presentation.resources.RealEstateListResources
 import com.xavierlnc.aviv.features.shared.formatter.area.AreaFormatter
 import com.xavierlnc.aviv.features.shared.formatter.price.PriceFormatter
 import javax.inject.Inject
@@ -9,6 +10,7 @@ import javax.inject.Inject
 internal class RealEstatePresentationMapper @Inject constructor(
     private val priceFormatter: PriceFormatter,
     private val areaFormatter: AreaFormatter,
+    private val realEstateListResources: RealEstateListResources,
 ) {
 
     fun mapRealEstateDomainToPresentation(item: RealEstateModel): RealEstateListItem =
@@ -30,8 +32,8 @@ internal class RealEstatePresentationMapper @Inject constructor(
         bedrooms: Int?,
         area: Double,
     ): String = listOfNotNull(
-        rooms?.let { "$rooms rooms" },
-        bedrooms?.let { "$bedrooms bedrooms" },
+        rooms?.let { realEstateListResources.formatRooms(it) },
+        bedrooms?.let { realEstateListResources.formatBedrooms(it) },
         areaFormatter.formatArea(area)
     ).joinToString(separator = " • ")
 }
