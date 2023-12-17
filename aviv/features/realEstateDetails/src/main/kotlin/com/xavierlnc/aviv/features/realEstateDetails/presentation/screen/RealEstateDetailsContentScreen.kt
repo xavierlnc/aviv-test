@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.xavierlnc.aviv.features.realEstateDetails.presentation.model.RealEstateDetails
 import com.xavierlnc.designSystem.core.AsyncImage
+import com.xavierlnc.designSystem.foundation.AvivTheme
 
 @Composable
 internal fun RealEstateDetailsContentScreen(
@@ -88,9 +89,9 @@ internal fun RealEstateDetailsContentScreen(
     }
 }
 
-@Preview
 @Composable
-private fun RealEstateDetailsContentScreenPreview() {
+@Preview(showBackground = true, backgroundColor = 0xFFFFFF)
+private fun RealEstateDetailsContentScreenPreview() = AvivTheme {
     RealEstateDetailsContentScreen(
         details = RealEstateDetails(
             id = 0,
