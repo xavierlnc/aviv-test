@@ -13,7 +13,7 @@ data class RealEstateListItemJsonModel(
     @SerializedName("rooms") val rooms: Int?,
     @SerializedName("city") val city: String,
     @SerializedName("area") val area: Double,
-    @SerializedName("imageUrl") val imageUrl: String?,
+    @SerializedName("url") val url: String?,
     @SerializedName("price") val price: Double,
     @SerializedName("professional") val professional: String,
     @SerializedName("propertyType") val propertyType: String,

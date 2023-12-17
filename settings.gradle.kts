@@ -17,6 +17,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "aviv-test"
 
+include(
+    ":designSystem"
+)
+
 apply(from = "aviv/settings.gradle.kts")
 apply(from = "network/settings.gradle.kts")
 

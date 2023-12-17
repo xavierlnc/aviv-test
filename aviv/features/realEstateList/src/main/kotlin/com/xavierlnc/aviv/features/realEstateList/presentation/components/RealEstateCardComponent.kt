@@ -15,13 +15,16 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListItem
+import com.xavierlnc.designSystem.core.AsyncImage
 
 @Composable
 internal fun RealEstateCardComponent(
@@ -40,12 +43,24 @@ internal fun RealEstateCardComponent(
         shadowElevation = 4.dp,
         shape = RoundedCornerShape(4.dp),
     ) {
-        Column{
-            Box(modifier = Modifier
+        Column {
+            val imageBoxModifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .background(color = Color.Gray))
-            Column(modifier = Modifier.padding(4.dp))  {
+
+            item.imageUrl?.let { url ->
+                AsyncImage(
+                    modifier = imageBoxModifier,
+                    imageUrl = url,
+                    contentScale = ContentScale.Crop,
+                    alignment = Alignment.Center
+                )
+            } ?: Box(
+                modifier = imageBoxModifier
+                    .background(color = Color.Gray)
+            )
+
+            Column(modifier = Modifier.padding(4.dp)) {
                 Text(
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
@@ -88,8 +103,8 @@ private fun EstateCardPreview() {
             type = "Maison - Villa",
             location = "Villers-sur-Mer",
             id = 1,
-            imageUrl = "https://v.seloger.com/s/crop/590x330/visuels/1/7/t/3/17t3fitclms3bzwv8qshbyzh9dw32e9l0p0udr80k.jpg",
             price = "1 500 000 €",
+            imageUrl = null,
         ),
         onItemClicked = {},
     )

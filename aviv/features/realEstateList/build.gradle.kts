@@ -14,6 +14,7 @@ android {
 dependencies {
     implementation(projects.network.realEstate)
     implementation(projects.network.retrofit)
+    implementation(projects.designSystem)
 
     implementation(libs.androidx.core)
     implementation(libs.activity.compose)

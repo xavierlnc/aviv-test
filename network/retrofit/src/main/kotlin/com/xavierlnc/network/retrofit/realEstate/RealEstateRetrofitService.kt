@@ -27,7 +27,7 @@ class RealEstateRetrofitService(
             jsonModelResult.items.map {
                 RealEstateListItemEntity(
                     price = it.price,
-                    imageUrl = it.imageUrl,
+                    imageUrl = it.url,
                     rooms = it.rooms,
                     id = it.id,
                     propertyType = it.propertyType,
