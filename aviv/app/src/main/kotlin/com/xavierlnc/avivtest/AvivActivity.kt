@@ -9,6 +9,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.xavierlnc.aviv.features.realEstateDetails.navigation.navigateRealEstateDetails
+import com.xavierlnc.aviv.features.realEstateDetails.navigation.realEstateDetailsScreen
 import com.xavierlnc.aviv.features.realEstateList.navigation.REAL_ESTATE_LIST_ROUTE
 import com.xavierlnc.aviv.features.realEstateList.navigation.realEstateListScreen
 import com.xavierlnc.avivtest.ui.theme.AvivTestTheme
@@ -30,7 +32,14 @@ class AvivActivity : ComponentActivity() {
                         navController = navController,
                         startDestination = REAL_ESTATE_LIST_ROUTE,
                     ) {
-                        realEstateListScreen()
+                        realEstateListScreen(
+                            navigateToRealEstateDetails = { id ->
+                                navController.navigateRealEstateDetails(id = id)
+                            }
+                        )
+                        realEstateDetailsScreen(
+                            onGoBack = { navController.popBackStack() }
+                        )
                     }
                 }
             }

@@ -11,9 +11,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.xavierlnc.aviv.features.realEstateList.presentation.RealEstateListViewModel
 import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListAction
+import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListEvent
 
 @Composable
 internal fun RealEstateListScreen(
+    navigateToRealEstateDetails: (id: Int) -> Unit,
     viewModel: RealEstateListViewModel = hiltViewModel(),
     modifier: Modifier = Modifier,
 ) {
@@ -21,10 +23,20 @@ internal fun RealEstateListScreen(
         viewModel.handleAction(RealEstateListAction.FetchRealEstateList)
     }
 
+    LaunchedEffect(Unit) {
+        viewModel.eventChanges.collect { event ->
+            when (event) {
+                is RealEstateListEvent.NavigateToRealEstateDetails -> navigateToRealEstateDetails(event.id)
+            }
+        }
+    }
+
     val state = viewModel.stateChanges.collectAsState()
 
     Box(
-        modifier = modifier.fillMaxSize().background(color = Color.White),
+        modifier = modifier
+            .fillMaxSize()
+            .background(color = Color.White),
     ) {
 
         when {

@@ -6,11 +6,15 @@ import com.xavierlnc.aviv.features.realEstateList.domain.usecase.FetchRealEstate
 import com.xavierlnc.aviv.features.realEstateList.domain.usecase.FetchRealEstateListUseCase
 import com.xavierlnc.aviv.features.realEstateList.presentation.mapper.RealEstatePresentationMapper
 import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListAction
+import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListEvent
 import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListItem
 import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -23,8 +27,10 @@ internal class RealEstateListViewModel @Inject constructor(
     private val realEstatePresentationMapper: RealEstatePresentationMapper,
 ) : ViewModel() {
     private val stateFlow: MutableStateFlow<RealEstateListState> = MutableStateFlow(initialState)
+    private val eventFlow: MutableSharedFlow<RealEstateListEvent> = MutableSharedFlow()
 
     val stateChanges: StateFlow<RealEstateListState> = stateFlow.asStateFlow()
+    val eventChanges: SharedFlow<RealEstateListEvent> = eventFlow.asSharedFlow()
 
     fun handleAction(action: RealEstateListAction) {
         when (action) {
@@ -67,6 +73,12 @@ internal class RealEstateListViewModel @Inject constructor(
     }
 
     private fun onEstateItemClicked(id: Int) {
-        println("onEstateItemClicked $id")
+        viewModelScope.launch {
+            eventFlow.emit(
+                RealEstateListEvent.NavigateToRealEstateDetails(
+                    id = id,
+                )
+            )
+        }
     }
 }

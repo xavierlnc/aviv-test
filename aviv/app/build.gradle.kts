@@ -30,6 +30,7 @@ android {
 
 dependencies {
     implementation(projects.aviv.features.realEstateList)
+    implementation(projects.aviv.features.realEstateDetails)
     implementation(projects.network.retrofit)
 
     // Hilt
