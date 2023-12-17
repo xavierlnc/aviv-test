@@ -1,4 +1,4 @@
-package com.xavierlnc.network.realEstate.model.list
+package com.xavierlnc.network.realEstate.model
 
 data class RealEstateListItemEntity(
     val id: Int,

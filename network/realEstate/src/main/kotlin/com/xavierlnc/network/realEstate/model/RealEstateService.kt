@@ -1,9 +1,8 @@
 package com.xavierlnc.network.realEstate.model
 
-import com.xavierlnc.network.realEstate.model.list.RealEstateListItemEntity
-
 interface RealEstateService {
     suspend fun getRealEstateList(): List<RealEstateListItemEntity>
+    suspend fun getRealEstateDetails(id: Int): RealEstateDetailsEntity
 }
 
 class RealEstateServiceException(
