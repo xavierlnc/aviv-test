@@ -12,7 +12,13 @@ android {
 }
 
 dependencies {
+    implementation(projects.network.realEstate)
+    implementation(projects.network.retrofit)
+    implementation(projects.designSystem)
+
     implementation(libs.androidx.core)
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.gson)
 
     // Hilt
     implementation(libs.hilt.android)

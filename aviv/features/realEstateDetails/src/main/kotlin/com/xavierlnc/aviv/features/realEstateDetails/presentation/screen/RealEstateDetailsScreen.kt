@@ -2,16 +2,14 @@ package com.xavierlnc.aviv.features.realEstateDetails.presentation.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.xavierlnc.aviv.features.realEstateDetails.presentation.RealEstateDetailsViewModel
 import com.xavierlnc.aviv.features.realEstateDetails.presentation.model.RealEstateDetailsAction
 import com.xavierlnc.aviv.features.realEstateDetails.presentation.model.RealEstateDetailsEvent
-import kotlinx.coroutines.flow.collect
 
 @Composable
 internal fun RealEstateDetailsScreen(
@@ -32,12 +30,29 @@ internal fun RealEstateDetailsScreen(
         }
     }
 
-    val state = viewModel.stateChanges
+    val state = viewModel.stateChanges.collectAsState()
 
     Box(modifier = modifier.fillMaxSize()) {
-        Text(
-            modifier = Modifier.align(Alignment.Center),
-            text = "Details $id"
-        )
+        when {
+            state.value.isLoading -> RealEstateDetailsLoadingScreen()
+
+            state.value.isError -> RealEstateDetailsErrorScreen(
+                onTryAgainClicked = {
+                    viewModel.handleAction(RealEstateDetailsAction.FetchRealEstateDetails(id))
+                }
+            )
+
+            else -> with (state.value) {
+                RealEstateDetailsContentScreen(
+                    details = details,
+                    imageUrl = imageUrl,
+                    price = price,
+                    professional = professional,
+                    offerType = offerType,
+                    type = type,
+                    location = location,
+                )
+            }
+        }
     }
 }
