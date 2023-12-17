@@ -13,6 +13,7 @@ import com.xavierlnc.aviv.features.realEstateDetails.navigation.navigateRealEsta
 import com.xavierlnc.aviv.features.realEstateDetails.navigation.realEstateDetailsScreen
 import com.xavierlnc.aviv.features.realEstateList.navigation.REAL_ESTATE_LIST_ROUTE
 import com.xavierlnc.aviv.features.realEstateList.navigation.realEstateListScreen
+import com.xavierlnc.avivtest.navigation.AvivRoot
 import com.xavierlnc.designSystem.foundation.AvivTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,26 +23,7 @@ class AvivActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AvivTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
-                ) {
-                    val navController = rememberNavController()
-                    NavHost(
-                        navController = navController,
-                        startDestination = REAL_ESTATE_LIST_ROUTE,
-                    ) {
-                        realEstateListScreen(
-                            navigateToRealEstateDetails = { id ->
-                                navController.navigateRealEstateDetails(id = id)
-                            }
-                        )
-                        realEstateDetailsScreen(
-                            onGoBack = { navController.popBackStack() }
-                        )
-                    }
-                }
+                AvivRoot()
             }
         }
     }
