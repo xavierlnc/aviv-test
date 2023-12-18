@@ -19,8 +19,6 @@ dependencies {
     implementation(projects.designSystem)
 
     implementation(libs.androidx.core)
-    implementation(libs.retrofit.core)
-    implementation(libs.retrofit.gson)
 
     // Hilt
     implementation(libs.hilt.android)

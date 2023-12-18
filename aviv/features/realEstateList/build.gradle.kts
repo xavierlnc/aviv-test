@@ -19,10 +19,7 @@ dependencies {
     implementation(projects.designSystem)
 
     implementation(libs.androidx.core)
-    implementation(libs.activity.compose)
     implementation(libs.kotlin.immutablelist)
-    implementation(libs.retrofit.core)
-    implementation(libs.retrofit.gson)
 
     // Hilt
     implementation(libs.hilt.android)

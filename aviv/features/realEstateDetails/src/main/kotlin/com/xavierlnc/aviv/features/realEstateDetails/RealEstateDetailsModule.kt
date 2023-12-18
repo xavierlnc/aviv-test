@@ -7,14 +7,13 @@ import com.xavierlnc.aviv.features.realEstateDetails.domain.usecase.FetchRealEst
 import com.xavierlnc.aviv.features.realEstateDetails.domain.usecase.FetchRealEstateDetailsUseCase
 import com.xavierlnc.aviv.features.realEstateDetails.presentation.model.RealEstateDetailsState
 import com.xavierlnc.aviv.features.realEstateDetails.presentation.resources.RealEstateDetailsResources
-import com.xavierlnc.network.retrofit.realEstate.RealEstateRetrofitService
+import com.xavierlnc.network.realEstate.RealEstateService
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import retrofit2.Retrofit
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -28,7 +27,8 @@ internal interface RealEstateDetailsModule {
     companion object {
 
         @Provides
-        fun providesRealEstateDetailsState(): RealEstateDetailsState = RealEstateDetailsState.Loading
+        fun providesRealEstateDetailsState(): RealEstateDetailsState =
+            RealEstateDetailsState.Loading
 
         @Provides
         fun providesRealEstateListResources(
@@ -39,12 +39,10 @@ internal interface RealEstateDetailsModule {
 
         @Provides
         fun providesRealEstateDetailsRepository(
-            retrofit: Retrofit,
+            realEstateService: RealEstateService,
         ): RealEstateDetailsRepository =
             RealEstateDetailsNetworkRepository(
-                realEstateService = RealEstateRetrofitService(
-                    retrofit = retrofit,
-                )
+                realEstateService = realEstateService
             )
     }
 }
