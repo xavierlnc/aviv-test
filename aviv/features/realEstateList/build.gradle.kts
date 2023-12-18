@@ -27,4 +27,7 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
+
+    testImplementation(libs.turbine)
+    testImplementation(libs.kotlin.coroutines.test)
 }

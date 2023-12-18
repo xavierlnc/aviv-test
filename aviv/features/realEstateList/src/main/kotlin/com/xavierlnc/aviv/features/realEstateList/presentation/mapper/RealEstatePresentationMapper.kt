@@ -13,19 +13,22 @@ internal class RealEstatePresentationMapper @Inject constructor(
     private val realEstateListResources: RealEstateListResources,
 ) {
 
-    fun mapRealEstateDomainToPresentation(item: RealEstateModel): RealEstateListItem =
-        RealEstateListItem(
-            id = item.id,
-            location = item.city,
-            type = item.propertyType,
-            imageUrl = item.imageUrl,
-            details = createRealEstateCardDetails(
-                rooms = item.rooms,
-                bedrooms = item.bedrooms,
-                area = item.area,
-            ),
-            price = priceFormatter.formatPrice(item.price),
-        )
+    fun mapRealEstateDomainToPresentation(items: List<RealEstateModel>): List<RealEstateListItem> =
+        items.map {  item ->
+            RealEstateListItem(
+                id = item.id,
+                location = item.city,
+                type = item.propertyType,
+                imageUrl = item.imageUrl,
+                details = createRealEstateCardDetails(
+                    rooms = item.rooms,
+                    bedrooms = item.bedrooms,
+                    area = item.area,
+                ),
+                price = priceFormatter.formatPrice(item.price),
+            )
+        }
+
 
     private fun createRealEstateCardDetails(
         rooms: Int?,

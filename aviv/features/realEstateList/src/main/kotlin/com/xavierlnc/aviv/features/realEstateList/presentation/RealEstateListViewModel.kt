@@ -7,9 +7,9 @@ import com.xavierlnc.aviv.features.realEstateList.domain.usecase.FetchRealEstate
 import com.xavierlnc.aviv.features.realEstateList.presentation.mapper.RealEstatePresentationMapper
 import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListAction
 import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListEvent
-import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListItem
 import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -25,6 +25,7 @@ internal class RealEstateListViewModel @Inject constructor(
     initialState: RealEstateListState,
     private val fetchRealEstateListUseCase: FetchRealEstateListUseCase,
     private val realEstatePresentationMapper: RealEstatePresentationMapper,
+    private val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
     private val stateFlow: MutableStateFlow<RealEstateListState> = MutableStateFlow(initialState)
     private val eventFlow: MutableSharedFlow<RealEstateListEvent> = MutableSharedFlow()
@@ -40,7 +41,7 @@ internal class RealEstateListViewModel @Inject constructor(
     }
 
     private fun fetchEstateList() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             stateFlow.update { currentState ->
                 currentState.copy(
                     isLoading = true,
@@ -57,14 +58,15 @@ internal class RealEstateListViewModel @Inject constructor(
                         )
                     }
                 }
+
                 is FetchRealEstateListResult.Success -> {
                     stateFlow.update { currentState ->
                         currentState.copy(
                             isLoading = false,
                             isError = false,
-                            estateList = fetchResult.items.map {
-                                realEstatePresentationMapper.mapRealEstateDomainToPresentation(it)
-                            }
+                            estateList = realEstatePresentationMapper.mapRealEstateDomainToPresentation(
+                                items = fetchResult.items,
+                            )
                         )
                     }
                 }
@@ -73,7 +75,7 @@ internal class RealEstateListViewModel @Inject constructor(
     }
 
     private fun onEstateItemClicked(id: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             eventFlow.emit(
                 RealEstateListEvent.NavigateToRealEstateDetails(
                     id = id,
