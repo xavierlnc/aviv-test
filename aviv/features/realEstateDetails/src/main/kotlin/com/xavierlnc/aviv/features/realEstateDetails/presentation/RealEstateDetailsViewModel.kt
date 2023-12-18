@@ -9,6 +9,7 @@ import com.xavierlnc.aviv.features.realEstateDetails.presentation.model.RealEsta
 import com.xavierlnc.aviv.features.realEstateDetails.presentation.model.RealEstateDetailsEvent
 import com.xavierlnc.aviv.features.realEstateDetails.presentation.model.RealEstateDetailsState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -24,6 +25,7 @@ internal class RealEstateDetailsViewModel @Inject constructor(
     initialState: RealEstateDetailsState,
     private val fetchRealEstateDetailsUseCase: FetchRealEstateDetailsUseCase,
     private val mapper: RealEstateDetailsPresentationMapper,
+    private val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
     private val stateFlow: MutableStateFlow<RealEstateDetailsState> = MutableStateFlow(initialState)
     private val eventFlow: MutableSharedFlow<RealEstateDetailsEvent> = MutableSharedFlow()
@@ -46,7 +48,7 @@ internal class RealEstateDetailsViewModel @Inject constructor(
             )
         }
 
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             when (val result = fetchRealEstateDetailsUseCase.invoke(id)) {
                 FetchRealEstateDetailsResult.Error -> {
                     stateFlow.update { currentState ->
@@ -73,7 +75,7 @@ internal class RealEstateDetailsViewModel @Inject constructor(
     }
 
     private fun onBackClicked() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             eventFlow.emit(RealEstateDetailsEvent.GoBack)
         }
     }
