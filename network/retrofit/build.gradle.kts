@@ -16,4 +16,7 @@ dependencies {
 
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.gson)
+
+    testImplementation(libs.kotlin.coroutines.test)
+    testImplementation(libs.okhttp.mockwebserver)
 }

@@ -1,7 +1,7 @@
 package com.xavierlnc.aviv.features.realEstateList.data.repository
 
 import com.xavierlnc.aviv.features.realEstateList.domain.model.RealEstateModel
-import com.xavierlnc.network.realEstate.model.RealEstateService
+import com.xavierlnc.network.realEstate.RealEstateService
 import javax.inject.Inject
 
 internal class RealEstateListNetworkRepository @Inject constructor(

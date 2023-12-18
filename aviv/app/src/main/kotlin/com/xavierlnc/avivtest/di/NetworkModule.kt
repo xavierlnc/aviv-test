@@ -1,6 +1,6 @@
 package com.xavierlnc.avivtest.di
 
-import com.xavierlnc.network.retrofit.RetrofitFactory
+import com.xavierlnc.network.retrofit.factory.RetrofitDefaultFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +13,7 @@ object NetworkModule {
 
     @Provides
     fun providesRetrofit(): Retrofit =
-        RetrofitFactory(
+        RetrofitDefaultFactory(
             baseUrl = "https://gsl-apps-technical-test.dignp.com",
         ).build()
 }

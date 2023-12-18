@@ -1,14 +1,14 @@
-package com.xavierlnc.network.retrofit
+package com.xavierlnc.network.retrofit.factory
 
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitFactory(
+class RetrofitDefaultFactory(
     private val baseUrl: String,
-) {
-    fun build(): Retrofit =
+) : RetrofitFactory {
+    override fun build(): Retrofit =
         Retrofit
             .Builder()
             .client(createHttpClient())

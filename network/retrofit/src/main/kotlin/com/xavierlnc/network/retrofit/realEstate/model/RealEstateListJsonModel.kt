@@ -1,4 +1,4 @@
-package com.xavierlnc.network.retrofit.realEstate
+package com.xavierlnc.network.retrofit.realEstate.model
 
 import com.google.gson.annotations.SerializedName
 

@@ -2,8 +2,10 @@ package com.xavierlnc.network.retrofit.realEstate
 
 import com.xavierlnc.network.realEstate.model.RealEstateDetailsEntity
 import com.xavierlnc.network.realEstate.model.RealEstateListItemEntity
-import com.xavierlnc.network.realEstate.model.RealEstateService
-import com.xavierlnc.network.realEstate.model.RealEstateServiceException
+import com.xavierlnc.network.realEstate.RealEstateService
+import com.xavierlnc.network.realEstate.RealEstateServiceException
+import com.xavierlnc.network.retrofit.realEstate.model.RealEstateItemJsonModel
+import com.xavierlnc.network.retrofit.realEstate.model.RealEstateListJsonModel
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Path
