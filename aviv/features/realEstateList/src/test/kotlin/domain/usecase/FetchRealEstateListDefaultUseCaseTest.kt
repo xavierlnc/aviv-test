@@ -82,7 +82,6 @@ class FetchRealEstateListDefaultUseCaseTest {
             )
         )
 
-
         given(realEstateListRepository.getRealEstateList()).thenReturn(domainModels)
 
         Assertions.assertEquals(
