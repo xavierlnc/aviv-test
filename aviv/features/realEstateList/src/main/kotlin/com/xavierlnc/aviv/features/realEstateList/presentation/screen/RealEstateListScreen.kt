@@ -12,12 +12,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.xavierlnc.aviv.features.realEstateList.presentation.RealEstateListViewModel
 import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListAction
 import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListEvent
+import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListState
 
 @Composable
 internal fun RealEstateListScreen(
     navigateToRealEstateDetails: (id: Int) -> Unit,
-    viewModel: RealEstateListViewModel = hiltViewModel(),
     modifier: Modifier = Modifier,
+    viewModel: RealEstateListViewModel = hiltViewModel(),
 ) {
     LaunchedEffect(Unit) {
         viewModel.handleAction(RealEstateListAction.FetchRealEstateList)
@@ -26,34 +27,34 @@ internal fun RealEstateListScreen(
     LaunchedEffect(Unit) {
         viewModel.eventChanges.collect { event ->
             when (event) {
-                is RealEstateListEvent.NavigateToRealEstateDetails -> navigateToRealEstateDetails(event.id)
+                is RealEstateListEvent.NavigateToRealEstateDetails -> navigateToRealEstateDetails(
+                    event.id
+                )
             }
         }
     }
 
-    val state = viewModel.stateChanges.collectAsState()
+    val state = viewModel.stateChanges.collectAsState().value
 
     Box(
         modifier = modifier
             .fillMaxSize()
             .background(color = Color.White),
     ) {
-
-        when {
-            state.value.isLoading -> RealEstateListLoadingScreen()
-
-            state.value.isError -> RealEstateListErrorScreen(
-                onTryAgainClicked = { viewModel.handleAction(RealEstateListAction.FetchRealEstateList) }
-            )
-
-            state.value.isEmpty -> RealEstateListEmptyScreen()
-
-            else -> RealEstateListContentScreen(
-                estateItems = state.value.estateList,
+        when (state) {
+            is RealEstateListState.Content -> RealEstateListContentScreen(
+                estateItems = state.estateList,
                 onItemClicked = { id ->
                     viewModel.handleAction(RealEstateListAction.OnRealEstateItemClicked(id))
                 }
             )
+
+            RealEstateListState.Error -> RealEstateListErrorScreen(
+                onTryAgainClicked = { viewModel.handleAction(RealEstateListAction.FetchRealEstateList) }
+            )
+
+            RealEstateListState.Empty -> RealEstateListEmptyScreen()
+            RealEstateListState.Loading -> RealEstateListLoadingScreen()
         }
     }
 }

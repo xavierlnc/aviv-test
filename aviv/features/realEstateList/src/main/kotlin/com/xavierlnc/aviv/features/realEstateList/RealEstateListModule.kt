@@ -27,7 +27,7 @@ internal interface RealEstateListModule {
 
     companion object {
         @Provides
-        fun providesRealEstateListState(): RealEstateListState = RealEstateListState()
+        fun providesRealEstateListState(): RealEstateListState = RealEstateListState.Loading
 
         @Provides
         fun providesRealEstateListResources(

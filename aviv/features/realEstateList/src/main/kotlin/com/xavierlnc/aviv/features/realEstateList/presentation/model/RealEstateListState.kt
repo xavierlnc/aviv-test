@@ -1,8 +1,10 @@
 package com.xavierlnc.aviv.features.realEstateList.presentation.model
 
-internal data class RealEstateListState(
-    val isLoading: Boolean = true,
-    val isError: Boolean = false,
-    val isEmpty: Boolean = false,
-    val estateList: List<RealEstateListItem> = listOf(),
-)
+import kotlinx.collections.immutable.ImmutableList
+
+internal sealed interface RealEstateListState {
+    data object Loading : RealEstateListState
+    data object Error : RealEstateListState
+    data object Empty : RealEstateListState
+    data class Content(val estateList: ImmutableList<RealEstateListItem>) : RealEstateListState
+}

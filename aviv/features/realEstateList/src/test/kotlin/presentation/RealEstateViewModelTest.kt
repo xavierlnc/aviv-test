@@ -10,6 +10,8 @@ import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateL
 import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListEvent
 import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListItem
 import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListState
+import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions
@@ -30,8 +32,9 @@ class RealEstateViewModelTest {
     @Mock
     private lateinit var realEstatePresentationMapper: RealEstatePresentationMapper
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     private fun createViewModel(
-        initialState: RealEstateListState = RealEstateListState()
+        initialState: RealEstateListState = RealEstateListState.Loading
     ): RealEstateListViewModel = RealEstateListViewModel(
         initialState = initialState,
         fetchRealEstateListUseCase = fetchRealEstateListUseCase,
@@ -127,7 +130,7 @@ class RealEstateViewModelTest {
                 price = "5 000 000 €",
                 type = "Maison - Villa",
             )
-        )
+        ).toImmutableList()
 
         given(fetchRealEstateListUseCase.invoke()).thenReturn(
             FetchRealEstateListResult.Success(
@@ -143,15 +146,29 @@ class RealEstateViewModelTest {
         val state = viewModel.stateChanges.testIn(backgroundScope)
 
         Assertions.assertEquals(
-            RealEstateListState(
-                isLoading = false,
-                isError = false,
-                isEmpty = false,
-                estateList = presentationModels,
-            ),
+            RealEstateListState.Content(estateList = presentationModels),
             state.awaitItem(),
         )
     }
+
+    @Test
+    fun givenFetchRealEstateListAction_whenFetching_thenItShouldReturnEmpty() = runTest {
+        viewModel = createViewModel()
+
+        given(fetchRealEstateListUseCase.invoke()).thenReturn(
+            FetchRealEstateListResult.Success(items = listOf())
+        )
+
+        viewModel.handleAction(RealEstateListAction.FetchRealEstateList)
+
+        val state = viewModel.stateChanges.testIn(backgroundScope)
+
+        Assertions.assertEquals(
+            RealEstateListState.Empty,
+            state.awaitItem()
+        )
+    }
+
 
     @Test
     fun givenFetchRealEstateListAction_whenFetching_thenItShouldReturnError() = runTest {
@@ -166,12 +183,7 @@ class RealEstateViewModelTest {
         val state = viewModel.stateChanges.testIn(backgroundScope)
 
         Assertions.assertEquals(
-            RealEstateListState(
-                isLoading = false,
-                isError = true,
-                isEmpty = false,
-                estateList = listOf(),
-            ),
+            RealEstateListState.Error,
             state.awaitItem()
         )
     }

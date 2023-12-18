@@ -42,32 +42,24 @@ internal class RealEstateListViewModel @Inject constructor(
 
     private fun fetchEstateList() {
         viewModelScope.launch(dispatcher) {
-            stateFlow.update { currentState ->
-                currentState.copy(
-                    isLoading = true,
-                    isError = false,
-                )
-            }
+            stateFlow.update { RealEstateListState.Loading }
 
             when (val fetchResult = fetchRealEstateListUseCase.invoke()) {
                 FetchRealEstateListResult.Error -> {
-                    stateFlow.update { currentState ->
-                        currentState.copy(
-                            isLoading = false,
-                            isError = true,
-                        )
-                    }
+                    stateFlow.update { RealEstateListState.Error }
                 }
 
                 is FetchRealEstateListResult.Success -> {
-                    stateFlow.update { currentState ->
-                        currentState.copy(
-                            isLoading = false,
-                            isError = false,
-                            estateList = realEstatePresentationMapper.mapRealEstateDomainToPresentation(
-                                items = fetchResult.items,
+                    if (fetchResult.items.isEmpty()) {
+                        stateFlow.update { RealEstateListState.Empty }
+                    } else {
+                        stateFlow.update {
+                            RealEstateListState.Content(
+                                estateList = realEstatePresentationMapper.mapRealEstateDomainToPresentation(
+                                    items = fetchResult.items,
+                                )
                             )
-                        )
+                        }
                     }
                 }
             }

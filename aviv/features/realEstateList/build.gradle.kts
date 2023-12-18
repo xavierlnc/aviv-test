@@ -20,6 +20,7 @@ dependencies {
 
     implementation(libs.androidx.core)
     implementation(libs.activity.compose)
+    implementation(libs.kotlin.immutablelist)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.gson)
 

@@ -11,10 +11,12 @@ import androidx.compose.ui.unit.dp
 import com.xavierlnc.aviv.features.realEstateList.presentation.components.RealEstateCardComponent
 import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateListItem
 import com.xavierlnc.designSystem.foundation.AvivTheme
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 internal fun RealEstateListContentScreen(
-    estateItems: List<RealEstateListItem>,
+    estateItems: ImmutableList<RealEstateListItem>,
     onItemClicked: (id: Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -70,6 +72,6 @@ private fun RealEstateListContentScreenPreview() = AvivTheme {
                 type = "Maison - Villa",
                 imageUrl = null,
             ),
-        )
+        ).toImmutableList()
     )
 }

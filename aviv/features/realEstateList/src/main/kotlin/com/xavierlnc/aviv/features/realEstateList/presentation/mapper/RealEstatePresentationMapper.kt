@@ -5,6 +5,8 @@ import com.xavierlnc.aviv.features.realEstateList.presentation.model.RealEstateL
 import com.xavierlnc.aviv.features.realEstateList.presentation.resources.RealEstateListResources
 import com.xavierlnc.aviv.features.shared.formatter.area.AreaFormatter
 import com.xavierlnc.aviv.features.shared.formatter.price.PriceFormatter
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import javax.inject.Inject
 
 internal class RealEstatePresentationMapper @Inject constructor(
@@ -13,7 +15,7 @@ internal class RealEstatePresentationMapper @Inject constructor(
     private val realEstateListResources: RealEstateListResources,
 ) {
 
-    fun mapRealEstateDomainToPresentation(items: List<RealEstateModel>): List<RealEstateListItem> =
+    fun mapRealEstateDomainToPresentation(items: List<RealEstateModel>): ImmutableList<RealEstateListItem> =
         items.map {  item ->
             RealEstateListItem(
                 id = item.id,
@@ -27,7 +29,7 @@ internal class RealEstatePresentationMapper @Inject constructor(
                 ),
                 price = priceFormatter.formatPrice(item.price),
             )
-        }
+        }.toImmutableList()
 
 
     private fun createRealEstateCardDetails(
