@@ -41,29 +41,17 @@ internal class RealEstateDetailsViewModel @Inject constructor(
     }
 
     private fun fetchRealEstateDetails(id: Int) {
-        stateFlow.update { currentState ->
-            currentState.copy(
-                isLoading = true,
-                isError = false,
-            )
-        }
+        stateFlow.update { RealEstateDetailsState.Loading }
 
         viewModelScope.launch(dispatcher) {
             when (val result = fetchRealEstateDetailsUseCase.invoke(id)) {
                 FetchRealEstateDetailsResult.Error -> {
-                    stateFlow.update { currentState ->
-                        currentState.copy(
-                            isLoading = false,
-                            isError = true,
-                        )
-                    }
+                    stateFlow.update { RealEstateDetailsState.Error }
                 }
 
                 is FetchRealEstateDetailsResult.Success -> {
-                    stateFlow.update { currentState ->
-                        currentState.copy(
-                            isLoading = false,
-                            isError = false,
+                    stateFlow.update {
+                        RealEstateDetailsState.Content(
                             details = mapper.mapRealEstateDetailsDomainToPresentation(
                                 item = result.details
                             ),

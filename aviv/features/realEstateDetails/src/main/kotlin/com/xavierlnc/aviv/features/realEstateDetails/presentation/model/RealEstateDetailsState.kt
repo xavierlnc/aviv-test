@@ -1,7 +1,7 @@
 package com.xavierlnc.aviv.features.realEstateDetails.presentation.model
 
-internal data class RealEstateDetailsState(
-    val isLoading: Boolean = true,
-    val isError: Boolean = false,
-    val details: RealEstateDetails? = null,
-)
+internal sealed interface RealEstateDetailsState {
+    data object Loading : RealEstateDetailsState
+    data object Error : RealEstateDetailsState
+    data class Content(val details: RealEstateDetails) : RealEstateDetailsState
+}

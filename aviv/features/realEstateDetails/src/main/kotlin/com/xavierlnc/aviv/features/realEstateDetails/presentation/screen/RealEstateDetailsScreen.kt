@@ -10,13 +10,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.xavierlnc.aviv.features.realEstateDetails.presentation.RealEstateDetailsViewModel
 import com.xavierlnc.aviv.features.realEstateDetails.presentation.model.RealEstateDetailsAction
 import com.xavierlnc.aviv.features.realEstateDetails.presentation.model.RealEstateDetailsEvent
+import com.xavierlnc.aviv.features.realEstateDetails.presentation.model.RealEstateDetailsState
 
 @Composable
 internal fun RealEstateDetailsScreen(
     id: Int,
     onGoBack: () -> Unit,
-    viewModel: RealEstateDetailsViewModel = hiltViewModel(),
     modifier: Modifier = Modifier,
+    viewModel: RealEstateDetailsViewModel = hiltViewModel(),
 ) {
     LaunchedEffect(Unit) {
         viewModel.handleAction(RealEstateDetailsAction.FetchRealEstateDetails(id))
@@ -30,27 +31,21 @@ internal fun RealEstateDetailsScreen(
         }
     }
 
-    val state = viewModel.stateChanges.collectAsState()
+    val state = viewModel.stateChanges.collectAsState().value
 
     Box(modifier = modifier.fillMaxSize()) {
-        when {
-            state.value.isLoading -> RealEstateDetailsLoadingScreen()
+        when (state) {
+            is RealEstateDetailsState.Content -> RealEstateDetailsContentScreen(
+                details = state.details,
+            )
 
-            state.value.isError -> RealEstateDetailsErrorScreen(
+            RealEstateDetailsState.Error -> RealEstateDetailsErrorScreen(
                 onTryAgainClicked = {
                     viewModel.handleAction(RealEstateDetailsAction.FetchRealEstateDetails(id))
                 }
             )
 
-            state.value.details != null -> RealEstateDetailsContentScreen(
-                details = state.value.details!!,
-            )
-
-            else -> RealEstateDetailsErrorScreen(
-                onTryAgainClicked = {
-                    viewModel.handleAction(RealEstateDetailsAction.FetchRealEstateDetails(id))
-                }
-            )
+            RealEstateDetailsState.Loading -> RealEstateDetailsLoadingScreen()
         }
     }
 }
