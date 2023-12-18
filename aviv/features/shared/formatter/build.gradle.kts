@@ -11,9 +11,7 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core)
-    implementation(libs.activity.compose)
 
     // Hilt
     implementation(libs.hilt.android)
